@@ -1,0 +1,22 @@
+[
+  {
+    "from": "vip@client.com",
+    "subject": "Urgent: Contract Renewal",
+    "body": "Can we finalize the contract today? It’s critical we resolve this ASAP."
+  },
+  {
+    "from": "team@zenbox.com",
+    "subject": "Standup Notes",
+    "body": "Here’s a summary of today’s standup meeting and action items."
+  },
+  {
+    "from": "ceo@zenbox.com",
+    "subject": "Quarterly Strategy Update",
+    "body": "This quarter we’re focusing on productivity features and AI tools to support our users."
+  },
+  {
+    "from": "noreply@newsletter.com",
+    "subject": "Your weekly newsletter",
+    "body": "Check out the latest productivity tips and updates from around the industry."
+  }
+]

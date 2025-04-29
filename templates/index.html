@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ZenBox Inbox</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>ZenBox Inbox</h1>
+
+  <div id="toolbar">
+    <button onclick="startDeepWork()">Start Deep Work</button>
+    <div id="timer"></div>
+  </div>
+
+  <div id="inbox">Loading emails...</div>
+  <div id="debug" style="background:#eef; padding:10px; margin-top:20px;"></div>
+
+  <!-- Load LaunchDarkly first -->
+  <script src="https://unpkg.com/launchdarkly-js-client-sdk"></script>
+  <script src="/static/ld-config.js"></script>
+  <script src="/static/script.js"></script>
+  </body>
+</html>
