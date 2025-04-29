@@ -12,6 +12,9 @@ def get_emails():
     with open('emails.json', 'r') as f:
         data = json.load(f)
     return jsonify(data)
+    
+import os
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    port = int(os.environ.get('PORT', 8080))  # <-- important for Heroku
+    app.run(host='0.0.0.0', port=port)
