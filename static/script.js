@@ -10,8 +10,9 @@ logDebug("script.js is definitely running");
 let currentEmails = [];
 let currentSummaries = [];
 let prioritized = false;
+let summarized = true;
 
-// Feature flag fallbacks (simulating LaunchDarkly)
+// Simulated feature flags
 let prioritizationFlagEnabled = true;
 let summaryFlagEnabled = true;
 
@@ -19,8 +20,8 @@ async function loadInbox() {
   logDebug('Loading inbox data...');
 
   try {
-    const emailsResponse = await fetch('/emails.json'); // fixed path
-    const summariesResponse = await fetch('/summaries.json'); // fixed path
+    const emailsResponse = await fetch('/emails.json');
+    const summariesResponse = await fetch('/summaries.json');
     currentEmails = await emailsResponse.json();
     currentSummaries = await summariesResponse.json();
     logDebug('✅ Fetched emails and summaries');
@@ -29,12 +30,8 @@ async function loadInbox() {
     return;
   }
 
-  const button = document.getElementById('prioritizeButton');
-  if (prioritizationFlagEnabled) {
-    button.style.display = 'inline-block';
-  } else {
-    button.style.display = 'none';
-  }
+  document.getElementById('prioritizeButton').style.display = prioritizationFlagEnabled ? 'inline-block' : 'none';
+  document.getElementById('summaryButton').style.display = summaryFlagEnabled ? 'inline-block' : 'none';
 
   renderInbox();
 }
@@ -76,15 +73,19 @@ function renderInbox() {
     inbox.appendChild(emailItem);
   });
 
-  if (summaryFlagEnabled) {
+  if (summaryFlagEnabled && summarized) {
     applySummaries(currentSummaries);
   }
 }
 
 function applySummaries(summaries) {
   document.querySelectorAll('.summary').forEach((el, i) => {
-    el.innerHTML = `<em>Summary:</em> ${summaries[i] || "AI summary not available."}`;
+    el.innerHTML = `<span class="loading">Generating summary...</span>`;
+    setTimeout(() => {
+      el.innerHTML = `<em>Summary:</em> ${summaries[i] || "AI summary not available."}`;
+    }, 1000 + i * 150);
   });
+
   logDebug('✅ Summaries applied.');
 }
 
@@ -95,7 +96,14 @@ function togglePrioritization() {
   renderInbox();
 }
 
-// === Deep Work Mode ===
+function toggleSummaries() {
+  if (!summaryFlagEnabled) return;
+  summarized = !summarized;
+  logDebug(summarized ? 'Summaries ON' : 'Summaries OFF');
+  renderInbox();
+}
+
+// Deep Work Mode
 function startDeepWork() {
   const sessionSelect = document.getElementById('sessionLength');
   let duration = parseInt(sessionSelect.value);
@@ -187,6 +195,6 @@ function resumeDeepWork() {
   let interval = setInterval(updateDeepWorkTimer, 1000);
 }
 
-// === Startup ===
+// Startup
 loadInbox();
 checkDeepWorkState();
