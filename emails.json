@@ -2,21 +2,121 @@
   {
     "from": "vip@client.com",
     "subject": "Urgent: Contract Renewal",
-    "body": "Can we finalize the contract today? It’s critical we resolve this ASAP."
-  },
-  {
-    "from": "team@zenbox.com",
-    "subject": "Standup Notes",
-    "body": "Here’s a summary of today’s standup meeting and action items."
+    "body": "Can we finalize the contract today? It’s critical we resolve this ASAP.",
+    "date": "2025-04-29T09:30:00"
   },
   {
     "from": "ceo@zenbox.com",
     "subject": "Quarterly Strategy Update",
-    "body": "This quarter we’re focusing on productivity features and AI tools to support our users."
+    "body": "This quarter we’re focusing on productivity features and AI tools to support our users.",
+    "date": "2025-04-28T14:45:00"
+  },
+  {
+    "from": "team@zenbox.com",
+    "subject": "Standup Notes",
+    "body": "Here’s a summary of today’s standup meeting and action items.",
+    "date": "2025-04-27T10:15:00"
+  },
+  {
+    "from": "marketing@zenbox.com",
+    "subject": "Launch Metrics",
+    "body": "Check out early feedback from our ZenBox rollout.",
+    "date": "2025-04-26T16:30:00"
   },
   {
     "from": "noreply@newsletter.com",
     "subject": "Your weekly newsletter",
-    "body": "Check out the latest productivity tips and updates from around the industry."
+    "body": "Check out the latest productivity tips and updates from around the industry.",
+    "date": "2025-04-25T08:20:00"
+  },
+  {
+    "from": "alice@zenbox.com",
+    "subject": "Bug Report: Inbox Sync",
+    "body": "Found a bug with inbox sync for mobile users.",
+    "date": "2025-04-28T11:50:00"
+  },
+  {
+    "from": "vip@investors.com",
+    "subject": "Follow-up from Board Call",
+    "body": "Thanks for the update — looking forward to next steps.",
+    "date": "2025-04-24T13:00:00"
+  },
+  {
+    "from": "daniel@zenbox.com",
+    "subject": "Frontend Issue Resolved",
+    "body": "The bug you flagged in layout view has been fixed.",
+    "date": "2025-04-27T09:05:00"
+  },
+  {
+    "from": "ceo@zenbox.com",
+    "subject": "Vision 2025",
+    "body": "Let’s align on what success looks like for the coming quarter.",
+    "date": "2025-04-26T17:40:00"
+  },
+  {
+    "from": "support@zenbox.com",
+    "subject": "User Feedback Report",
+    "body": "Collected insights from 150+ new users in the past week.",
+    "date": "2025-04-25T12:10:00"
+  },
+  {
+    "from": "vip@client.com",
+    "subject": "Project Alpha: Update Request",
+    "body": "Could you provide an updated roadmap?",
+    "date": "2025-04-29T10:15:00"
+  },
+  {
+    "from": "paul@zenbox.com",
+    "subject": "Legal Review Complete",
+    "body": "The new T&Cs are approved.",
+    "date": "2025-04-23T15:25:00"
+  },
+  {
+    "from": "vip@advisorygroup.com",
+    "subject": "Strategy Alignment Session",
+    "body": "Do we have a time to sync this week?",
+    "date": "2025-04-28T16:00:00"
+  },
+  {
+    "from": "devops@zenbox.com",
+    "subject": "Deployment Status",
+    "body": "Production rollout went smoothly.",
+    "date": "2025-04-27T13:45:00"
+  },
+  {
+    "from": "vip@client.com",
+    "subject": "Slack Integration Q&A",
+    "body": "Can we connect about your Slack roadmap?",
+    "date": "2025-04-24T11:30:00"
+  },
+  {
+    "from": "designer@zenbox.com",
+    "subject": "Inbox Layout Mockups",
+    "body": "Figma board is ready for feedback.",
+    "date": "2025-04-23T17:20:00"
+  },
+  {
+    "from": "noreply@survey.com",
+    "subject": "We Value Your Feedback!",
+    "body": "Take our 30-second survey to shape the future of ZenBox.",
+    "date": "2025-04-25T09:10:00"
+  },
+  {
+    "from": "data@zenbox.com",
+    "subject": "Weekly Usage Dashboard",
+    "body": "User engagement rose 11% this week.",
+    "date": "2025-04-29T08:00:00"
+  },
+  {
+    "from": "vip@partnernetwork.com",
+    "subject": "Partnership Opportunity",
+    "body": "We’d like to explore a co-marketing initiative.",
+    "date": "2025-04-28T10:30:00"
+  },
+  {
+    "from": "hr@zenbox.com",
+    "subject": "Policy Reminder",
+    "body": "Don't forget to log your time-off requests by EOW.",
+    "date": "2025-04-23T08:55:00"
   }
 ]

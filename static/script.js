@@ -7,48 +7,68 @@ function logDebug(message) {
 
 logDebug("script.js is definitely running");
 
+let currentEmails = [];
+let currentSummaries = [];
+let prioritized = false;
+
+// Feature flag fallbacks (simulating LaunchDarkly)
+let prioritizationFlagEnabled = true;
+let summaryFlagEnabled = true;
+
 async function loadInbox() {
-  logDebug('Loading emails...');
-
-  const response = await fetch('/emails.json');
-  let emails = await response.json();
-
-  // === TEMP: Manual flag values ===
-  const prioritize = true;
-  const summaryEnabled = true;
-
-  // === FUTURE: Uncomment when LaunchDarkly is enabled ===
-  /*
-  let prioritize = false;
-  let summaryEnabled = false;
+  logDebug('Loading inbox data...');
 
   try {
-    prioritize = await ldClient.variation('smart-prioritization', false);
-    summaryEnabled = await ldClient.variation('smart-summary', false);
-    logDebug(`Flag values - Prioritize: ${prioritize}, Summary: ${summaryEnabled}`);
-  } catch (e) {
-    logDebug('LaunchDarkly flags not available, using defaults.');
+    const emailsResponse = await fetch('/emails.json'); // fixed path
+    const summariesResponse = await fetch('/summaries.json'); // fixed path
+    currentEmails = await emailsResponse.json();
+    currentSummaries = await summariesResponse.json();
+    logDebug('✅ Fetched emails and summaries');
+  } catch (error) {
+    logDebug('❌ Failed to fetch emails or summaries');
+    return;
   }
-  */
 
-  if (prioritize) {
-    logDebug('Smart prioritization enabled — sorting emails...');
-    emails.sort((a, b) => {
+  const button = document.getElementById('prioritizeButton');
+  if (prioritizationFlagEnabled) {
+    button.style.display = 'inline-block';
+  } else {
+    button.style.display = 'none';
+  }
+
+  renderInbox();
+}
+
+function renderInbox() {
+  const inbox = document.getElementById('inbox');
+  inbox.innerHTML = '';
+
+  if (!currentEmails.length) {
+    inbox.innerHTML = '<p>No emails loaded.</p>';
+    return;
+  }
+
+  let emailsToDisplay = [...currentEmails];
+
+  if (prioritized && prioritizationFlagEnabled) {
+    logDebug('Smart Prioritization enabled — VIPs sorted to top.');
+    emailsToDisplay.sort((a, b) => {
       const isAVIP = a.from.includes('vip') || a.from.includes('ceo');
       const isBVIP = b.from.includes('vip') || b.from.includes('ceo');
       return isBVIP - isAVIP;
     });
+  } else {
+    logDebug('Sorted by most recent date');
+    emailsToDisplay.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
-  const inbox = document.getElementById('inbox');
-  inbox.innerHTML = '';
-
-  emails.forEach((email, i) => {
+  emailsToDisplay.forEach((email, i) => {
     const emailItem = document.createElement('div');
     emailItem.className = 'email';
     emailItem.innerHTML = `
       <h3>${email.subject}</h3>
       <p><strong>From:</strong> ${email.from}</p>
+      <p><strong>Date:</strong> ${new Date(email.date).toLocaleString()}</p>
       <p>${email.body}</p>
       <div class="summary" id="summary-${i}"></div>
       <hr>
@@ -56,26 +76,26 @@ async function loadInbox() {
     inbox.appendChild(emailItem);
   });
 
-  if (summaryEnabled) {
-    applySummaries();
+  if (summaryFlagEnabled) {
+    applySummaries(currentSummaries);
   }
 }
 
-function applySummaries() {
-  const summaries = [
-    "Client urgently needs contract renewal.",
-    "Daily team notes and updates.",
-    "Q2 productivity goals from leadership.",
-    "General newsletter overview."
-  ];
-
+function applySummaries(summaries) {
   document.querySelectorAll('.summary').forEach((el, i) => {
     el.innerHTML = `<em>Summary:</em> ${summaries[i] || "AI summary not available."}`;
   });
-
-  logDebug('Summaries applied.');
+  logDebug('✅ Summaries applied.');
 }
 
+function togglePrioritization() {
+  if (!prioritizationFlagEnabled) return;
+  prioritized = !prioritized;
+  logDebug(prioritized ? 'Switched to prioritized mode' : 'Switched to chronological mode');
+  renderInbox();
+}
+
+// === Deep Work Mode ===
 function startDeepWork() {
   const sessionSelect = document.getElementById('sessionLength');
   let duration = parseInt(sessionSelect.value);
@@ -103,7 +123,6 @@ function startDeepWork() {
       const minutes = Math.floor(remaining / 60);
       const seconds = remaining % 60;
       timerDisplay.innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
       const progress = ((elapsed / duration) * 100);
       progressBar.style.width = `${progress}%`;
     }
@@ -117,24 +136,21 @@ function startDeepWork() {
 
 function finishDeepWork() {
   const overlay = document.getElementById('deepWorkOverlay');
-  const inbox = document.getElementById('inbox');
+  const timerDisplay = document.getElementById('timerDisplay');
+  timerDisplay.innerText = "Session Complete!";
 
   localStorage.removeItem('deepWorkActive');
   localStorage.removeItem('deepWorkStart');
   localStorage.removeItem('deepWorkDuration');
 
-  const timerDisplay = document.getElementById('timerDisplay');
-  timerDisplay.innerText = "Session Complete!";
-
   setTimeout(() => {
     overlay.style.display = 'none';
-    loadInbox();
+    renderInbox();
   }, 3000);
 }
 
 function checkDeepWorkState() {
-  const deepWorkActive = localStorage.getItem('deepWorkActive');
-  if (deepWorkActive === 'true') {
+  if (localStorage.getItem('deepWorkActive') === 'true') {
     resumeDeepWork();
   }
 }
@@ -158,7 +174,6 @@ function resumeDeepWork() {
       const minutes = Math.floor(remaining / 60);
       const seconds = remaining % 60;
       timerDisplay.innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
       const progress = ((elapsed / duration) * 100);
       progressBar.style.width = `${progress}%`;
     }
@@ -172,18 +187,6 @@ function resumeDeepWork() {
   let interval = setInterval(updateDeepWorkTimer, 1000);
 }
 
-// === LaunchDarkly fallback ===
-if (localStorage.getItem('deepWorkActive') !== 'true') {
-  loadInbox();
-}
-
-// Always check for resumed Deep Work
+// === Startup ===
+loadInbox();
 checkDeepWorkState();
-
-// === LaunchDarkly real usage (enable when TO is ready) ===
-/*
-ldClient.on('ready', () => {
-  logDebug('LaunchDarkly is ready');
-  loadInbox();
-});
-*/

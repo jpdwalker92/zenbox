@@ -12,6 +12,12 @@ def get_emails():
     with open('emails.json', 'r') as f:
         data = json.load(f)
     return jsonify(data)
+
+@app.route('/summaries.json')
+def get_summaries():
+    with open('summaries.json', 'r') as f:
+        data = json.load(f)
+    return jsonify(data)
     
 import os
 
