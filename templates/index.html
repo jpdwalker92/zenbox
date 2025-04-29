@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>ZenBox Inbox</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -8,16 +9,33 @@
   <h1>ZenBox Inbox</h1>
 
   <div id="toolbar">
+    <select id="sessionLength">
+      <option value="10">10 Seconds (Demo)</option>
+      <option value="300">5 Minutes</option>
+      <option value="1500">25 Minutes (Pomodoro)</option>
+    </select>
     <button onclick="startDeepWork()">Start Deep Work</button>
     <div id="timer"></div>
   </div>
 
   <div id="inbox">Loading emails...</div>
+
+  <!-- Deep Work Fullscreen Overlay -->
+  <div id="deepWorkOverlay" style="display:none;">
+    <div id="deepWorkContent">
+      <h2>Deep Work Mode</h2>
+      <div id="timerDisplay">Loading...</div>
+      <div id="progressContainer">
+        <div id="progressBar"></div>
+      </div>
+    </div>
+  </div>
+
   <div id="debug" style="background:#eef; padding:10px; margin-top:20px;"></div>
 
   <!-- Load LaunchDarkly first -->
   <script src="https://unpkg.com/launchdarkly-js-client-sdk"></script>
   <script src="/static/ld-config.js"></script>
   <script src="/static/script.js"></script>
-  </body>
+</body>
 </html>

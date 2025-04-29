@@ -7,18 +7,17 @@ function logDebug(message) {
 
 logDebug("script.js is definitely running");
 
-// Load inbox and apply feature flags
 async function loadInbox() {
   logDebug('Loading emails...');
 
   const response = await fetch('/emails.json');
   let emails = await response.json();
 
-  // === CURRENT STATE: MANUAL FLAG VALUES (USE THIS FOR NOW) ===
+  // === TEMP: Manual flag values ===
   const prioritize = true;
   const summaryEnabled = true;
 
-  // === FUTURE STATE: UNCOMMENT THIS WHEN TRUSTED ORIGINS ENABLED ===
+  // === FUTURE: Uncomment when LaunchDarkly is enabled ===
   /*
   let prioritize = false;
   let summaryEnabled = false;
@@ -32,7 +31,6 @@ async function loadInbox() {
   }
   */
 
-  // Apply smart prioritization if flag is enabled
   if (prioritize) {
     logDebug('Smart prioritization enabled — sorting emails...');
     emails.sort((a, b) => {
@@ -48,7 +46,6 @@ async function loadInbox() {
   emails.forEach((email, i) => {
     const emailItem = document.createElement('div');
     emailItem.className = 'email';
-
     emailItem.innerHTML = `
       <h3>${email.subject}</h3>
       <p><strong>From:</strong> ${email.from}</p>
@@ -56,7 +53,6 @@ async function loadInbox() {
       <div class="summary" id="summary-${i}"></div>
       <hr>
     `;
-
     inbox.appendChild(emailItem);
   });
 
@@ -65,7 +61,6 @@ async function loadInbox() {
   }
 }
 
-// Fake summaries for demo
 function applySummaries() {
   const summaries = [
     "Client urgently needs contract renewal.",
@@ -81,32 +76,111 @@ function applySummaries() {
   logDebug('Summaries applied.');
 }
 
-// Deep Work mode blocks inbox temporarily
 function startDeepWork() {
-  const inbox = document.getElementById('inbox');
-  inbox.innerHTML = '<h2>Deep Work Mode Enabled</h2>';
+  const sessionSelect = document.getElementById('sessionLength');
+  let duration = parseInt(sessionSelect.value);
 
-  let duration = 10;
-  const timerDisplay = document.getElementById('timer');
+  const overlay = document.getElementById('deepWorkOverlay');
+  const timerDisplay = document.getElementById('timerDisplay');
+  const progressBar = document.getElementById('progressBar');
 
-  const interval = setInterval(() => {
-    duration--;
-    const minutes = Math.floor(duration / 60);
-    const seconds = duration % 60;
-    timerDisplay.innerText = `Time Left: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+  const startTime = Date.now();
+  localStorage.setItem('deepWorkActive', 'true');
+  localStorage.setItem('deepWorkStart', startTime.toString());
+  localStorage.setItem('deepWorkDuration', duration.toString());
 
-    if (duration <= 0) {
-      clearInterval(interval);
-      timerDisplay.innerText = '';
-      loadInbox();
+  overlay.style.display = 'flex';
+  updateDeepWorkTimer();
+
+  let interval = setInterval(updateDeepWorkTimer, 1000);
+
+  function updateDeepWorkTimer() {
+    const now = Date.now();
+    const elapsed = Math.floor((now - startTime) / 1000);
+    const remaining = duration - elapsed;
+
+    if (remaining >= 0) {
+      const minutes = Math.floor(remaining / 60);
+      const seconds = remaining % 60;
+      timerDisplay.innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      const progress = ((elapsed / duration) * 100);
+      progressBar.style.width = `${progress}%`;
     }
-  }, 1000);
+
+    if (remaining <= 0) {
+      clearInterval(interval);
+      finishDeepWork();
+    }
+  }
 }
 
-// === CURRENT STATE: Call inbox loader immediately ===
-loadInbox();
+function finishDeepWork() {
+  const overlay = document.getElementById('deepWorkOverlay');
+  const inbox = document.getElementById('inbox');
 
-// === FUTURE STATE: UNCOMMENT WHEN LaunchDarkly is ready ===
+  localStorage.removeItem('deepWorkActive');
+  localStorage.removeItem('deepWorkStart');
+  localStorage.removeItem('deepWorkDuration');
+
+  const timerDisplay = document.getElementById('timerDisplay');
+  timerDisplay.innerText = "Session Complete!";
+
+  setTimeout(() => {
+    overlay.style.display = 'none';
+    loadInbox();
+  }, 3000);
+}
+
+function checkDeepWorkState() {
+  const deepWorkActive = localStorage.getItem('deepWorkActive');
+  if (deepWorkActive === 'true') {
+    resumeDeepWork();
+  }
+}
+
+function resumeDeepWork() {
+  const overlay = document.getElementById('deepWorkOverlay');
+  const timerDisplay = document.getElementById('timerDisplay');
+  const progressBar = document.getElementById('progressBar');
+
+  const startTime = parseInt(localStorage.getItem('deepWorkStart'));
+  const duration = parseInt(localStorage.getItem('deepWorkDuration'));
+
+  overlay.style.display = 'flex';
+
+  function updateDeepWorkTimer() {
+    const now = Date.now();
+    const elapsed = Math.floor((now - startTime) / 1000);
+    const remaining = duration - elapsed;
+
+    if (remaining >= 0) {
+      const minutes = Math.floor(remaining / 60);
+      const seconds = remaining % 60;
+      timerDisplay.innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      const progress = ((elapsed / duration) * 100);
+      progressBar.style.width = `${progress}%`;
+    }
+
+    if (remaining <= 0) {
+      clearInterval(interval);
+      finishDeepWork();
+    }
+  }
+
+  let interval = setInterval(updateDeepWorkTimer, 1000);
+}
+
+// === LaunchDarkly fallback ===
+if (localStorage.getItem('deepWorkActive') !== 'true') {
+  loadInbox();
+}
+
+// Always check for resumed Deep Work
+checkDeepWorkState();
+
+// === LaunchDarkly real usage (enable when TO is ready) ===
 /*
 ldClient.on('ready', () => {
   logDebug('LaunchDarkly is ready');
