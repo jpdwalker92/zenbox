@@ -9,8 +9,30 @@ function logDebug(message) {
 // ✅ Confirm script is running
 logDebug("✅ script.js is definitely running");
 
-// ✅ Call loadInbox immediately — no need to wait for LaunchDarkly ready
-loadInbox();
+// ✅ Load LaunchDarkly client config
+const 67fe704d1acad60d5d7e2846 = 'your-client-side-id'; // <-- Replace with your real client-side ID
+const userContext = {
+  kind: 'user',
+  key: 'alice@zenbox.com',
+  name: 'Alice',
+  plan: 'pro',
+  beta: true
+};
+
+const ldOptions = {
+  bootstrap: 'localStorage',
+  sendEvents: true,
+  streaming: true,
+  logger: console
+};
+
+const ldClient = LaunchDarkly.initialize(LD_CLIENT_ID, userContext, ldOptions);
+
+// ✅ Load inbox when LaunchDarkly is ready
+ldClient.on('ready', () => {
+  logDebug('✅ LaunchDarkly is ready');
+  loadInbox();
+});
 
 // ✅ Load emails and render inbox
 async function loadInbox() {
@@ -19,9 +41,8 @@ async function loadInbox() {
   const response = await fetch('/emails.json');
   let emails = await response.json();
 
-  // Try to get feature flag values safely
-  let prioritize = true;
-  let summaryEnabled = true;
+  let prioritize = false;
+  let summaryEnabled = false;
 
   try {
     prioritize = ldClient.variation('smart-prioritization', false);
@@ -58,13 +79,12 @@ async function loadInbox() {
     inbox.appendChild(emailItem);
   });
 
-  // After inbox loads, apply summaries if flag is ON
   if (summaryEnabled) {
     applySummaries();
   }
 }
 
-// ✅ Function to fake AI summaries
+// ✅ Fake AI Summarization
 function applySummaries() {
   const summaries = [
     "Client urgently needs contract renewal.",
@@ -85,7 +105,7 @@ function startDeepWork() {
   const inbox = document.getElementById('inbox');
   inbox.innerHTML = '<h2>Deep Work Mode Enabled</h2>';
 
-  let duration = 5; // 25 minutes in seconds
+  let duration = 10; // 10 seconds for demo
   const timerDisplay = document.getElementById('timer');
 
   const interval = setInterval(() => {
@@ -97,7 +117,7 @@ function startDeepWork() {
     if (duration <= 0) {
       clearInterval(interval);
       timerDisplay.innerText = '';
-      loadInbox(); // Reload inbox after timer
+      loadInbox();
     }
   }, 1000);
 }
