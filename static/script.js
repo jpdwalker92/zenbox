@@ -1,4 +1,3 @@
-// Function to print debug messages visibly on the page
 function logDebug(message) {
   const debugBox = document.getElementById('debug');
   const entry = document.createElement('p');
@@ -6,22 +5,36 @@ function logDebug(message) {
   debugBox.appendChild(entry);
 }
 
-// ✅ Confirm script is running
-logDebug("✅ script.js is definitely running");
+logDebug("script.js is definitely running");
 
-// ✅ Load emails and render inbox
+// Load inbox and apply feature flags
 async function loadInbox() {
   logDebug('Loading emails...');
 
   const response = await fetch('/emails.json');
   let emails = await response.json();
 
-  // Simulate flag values manually (no LaunchDarkly)
+  // === CURRENT STATE: MANUAL FLAG VALUES (USE THIS FOR NOW) ===
   const prioritize = true;
   const summaryEnabled = true;
 
+  // === FUTURE STATE: UNCOMMENT THIS WHEN TRUSTED ORIGINS ENABLED ===
+  /*
+  let prioritize = false;
+  let summaryEnabled = false;
+
+  try {
+    prioritize = await ldClient.variation('smart-prioritization', false);
+    summaryEnabled = await ldClient.variation('smart-summary', false);
+    logDebug(`Flag values - Prioritize: ${prioritize}, Summary: ${summaryEnabled}`);
+  } catch (e) {
+    logDebug('LaunchDarkly flags not available, using defaults.');
+  }
+  */
+
+  // Apply smart prioritization if flag is enabled
   if (prioritize) {
-    logDebug('✅ Smart prioritization enabled — sorting emails...');
+    logDebug('Smart prioritization enabled — sorting emails...');
     emails.sort((a, b) => {
       const isAVIP = a.from.includes('vip') || a.from.includes('ceo');
       const isBVIP = b.from.includes('vip') || b.from.includes('ceo');
@@ -52,7 +65,7 @@ async function loadInbox() {
   }
 }
 
-// ✅ Fake AI Summarization
+// Fake summaries for demo
 function applySummaries() {
   const summaries = [
     "Client urgently needs contract renewal.",
@@ -65,15 +78,15 @@ function applySummaries() {
     el.innerHTML = `<em>Summary:</em> ${summaries[i] || "AI summary not available."}`;
   });
 
-  logDebug('✅ Summaries applied.');
+  logDebug('Summaries applied.');
 }
 
-// ✅ Deep Work Mode
+// Deep Work mode blocks inbox temporarily
 function startDeepWork() {
   const inbox = document.getElementById('inbox');
   inbox.innerHTML = '<h2>Deep Work Mode Enabled</h2>';
 
-  let duration = 10; // 10 seconds for demo
+  let duration = 10;
   const timerDisplay = document.getElementById('timer');
 
   const interval = setInterval(() => {
@@ -85,10 +98,18 @@ function startDeepWork() {
     if (duration <= 0) {
       clearInterval(interval);
       timerDisplay.innerText = '';
-      loadInbox(); // Reload inbox after deep work
+      loadInbox();
     }
   }, 1000);
 }
 
-// ✅ Kick off
+// === CURRENT STATE: Call inbox loader immediately ===
 loadInbox();
+
+// === FUTURE STATE: UNCOMMENT WHEN LaunchDarkly is ready ===
+/*
+ldClient.on('ready', () => {
+  logDebug('LaunchDarkly is ready');
+  loadInbox();
+});
+*/
