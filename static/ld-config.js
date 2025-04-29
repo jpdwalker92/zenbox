@@ -9,7 +9,7 @@ function logDebug(message) {
 logDebug('✅ ld-config.js loaded!');
 logDebug('Trying to initialize LaunchDarkly...');
 
-const LD_CLIENT_ID = '67fe704d1acad60d5d7e2846'; // your real key
+const LD_CLIENT_ID = '6810f9ada24e2a0b50151830'; // your real key
 
 const userContext = {
   kind: 'user',

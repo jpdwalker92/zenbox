@@ -9,31 +9,6 @@ function logDebug(message) {
 // ✅ Confirm script is running
 logDebug("✅ script.js is definitely running");
 
-// ✅ Load LaunchDarkly client config
-const 67fe704d1acad60d5d7e2846 = 'your-client-side-id'; // <-- Replace with your real client-side ID
-const userContext = {
-  kind: 'user',
-  key: 'alice@zenbox.com',
-  name: 'Alice',
-  plan: 'pro',
-  beta: true
-};
-
-const ldOptions = {
-  bootstrap: 'localStorage',
-  sendEvents: true,
-  streaming: true,
-  logger: console
-};
-
-const ldClient = LaunchDarkly.initialize(LD_CLIENT_ID, userContext, ldOptions);
-
-// ✅ Load inbox when LaunchDarkly is ready
-ldClient.on('ready', () => {
-  logDebug('✅ LaunchDarkly is ready');
-  loadInbox();
-});
-
 // ✅ Load emails and render inbox
 async function loadInbox() {
   logDebug('Loading emails...');
@@ -41,16 +16,9 @@ async function loadInbox() {
   const response = await fetch('/emails.json');
   let emails = await response.json();
 
-  let prioritize = false;
-  let summaryEnabled = false;
-
-  try {
-    prioritize = ldClient.variation('smart-prioritization', false);
-    summaryEnabled = ldClient.variation('smart-summary', false);
-    logDebug(`✅ Flag values - Prioritize: ${prioritize}, Summary: ${summaryEnabled}`);
-  } catch (e) {
-    logDebug('⚠️ LaunchDarkly flags not available, using defaults.');
-  }
+  // Simulate flag values manually (no LaunchDarkly)
+  const prioritize = true;
+  const summaryEnabled = true;
 
   if (prioritize) {
     logDebug('✅ Smart prioritization enabled — sorting emails...');
@@ -117,7 +85,10 @@ function startDeepWork() {
     if (duration <= 0) {
       clearInterval(interval);
       timerDisplay.innerText = '';
-      loadInbox();
+      loadInbox(); // Reload inbox after deep work
     }
   }, 1000);
 }
+
+// ✅ Kick off
+loadInbox();
