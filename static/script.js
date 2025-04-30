@@ -12,7 +12,6 @@ let currentSummaries = [];
 let prioritized = false;
 let summarized = true;
 
-// Simulated feature flags
 let prioritizationFlagEnabled = true;
 let summaryFlagEnabled = true;
 
@@ -30,8 +29,10 @@ async function loadInbox() {
     return;
   }
 
-  document.getElementById('prioritizeButton').style.display = prioritizationFlagEnabled ? 'inline-block' : 'none';
-  document.getElementById('summaryButton').style.display = summaryFlagEnabled ? 'inline-block' : 'none';
+  const prioritizeBtn = document.getElementById('prioritizeButton');
+  const summaryBtn = document.getElementById('summaryButton');
+  if (prioritizationFlagEnabled) prioritizeBtn.style.display = 'inline-block';
+  if (summaryFlagEnabled) summaryBtn.style.display = 'inline-block';
 
   renderInbox();
 }
@@ -60,33 +61,32 @@ function renderInbox() {
   }
 
   emailsToDisplay.forEach((email, i) => {
+    const summary = summaryFlagEnabled && summarized ? currentSummaries[i] : null;
+
     const emailItem = document.createElement('div');
-    emailItem.className = 'email';
+    emailItem.className = 'email-row';
+
     emailItem.innerHTML = `
-      <h3>${email.subject}</h3>
-      <p><strong>From:</strong> ${email.from}</p>
-      <p><strong>Date:</strong> ${new Date(email.date).toLocaleString()}</p>
-      <p>${email.body}</p>
-      <div class="summary" id="summary-${i}"></div>
-      <hr>
+      <div class="email-summary-header" onclick="toggleEmail(this)">
+        <div class="subject">${email.subject}</div>
+        <div class="meta">
+          <span class="from">${email.from}</span>
+          <span class="date">${new Date(email.date).toLocaleString()}</span>
+        </div>
+        ${summary ? `<div class="summary-line">${summary}</div>` : ''}
+      </div>
+      <div class="email-body" style="display: none;">
+        <p>${email.body}</p>
+      </div>
     `;
+
     inbox.appendChild(emailItem);
   });
-
-  if (summaryFlagEnabled && summarized) {
-    applySummaries(currentSummaries);
-  }
 }
 
-function applySummaries(summaries) {
-  document.querySelectorAll('.summary').forEach((el, i) => {
-    el.innerHTML = `<span class="loading">Generating summary...</span>`;
-    setTimeout(() => {
-      el.innerHTML = `<em>Summary:</em> ${summaries[i] || "AI summary not available."}`;
-    }, 1000 + i * 150);
-  });
-
-  logDebug('✅ Summaries applied.');
+function toggleEmail(header) {
+  const body = header.nextElementSibling;
+  body.style.display = body.style.display === 'none' ? 'block' : 'none';
 }
 
 function togglePrioritization() {
@@ -103,7 +103,6 @@ function toggleSummaries() {
   renderInbox();
 }
 
-// Deep Work Mode
 function startDeepWork() {
   const sessionSelect = document.getElementById('sessionLength');
   let duration = parseInt(sessionSelect.value);
@@ -195,6 +194,5 @@ function resumeDeepWork() {
   let interval = setInterval(updateDeepWorkTimer, 1000);
 }
 
-// Startup
 loadInbox();
 checkDeepWorkState();

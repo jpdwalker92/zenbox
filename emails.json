@@ -2,121 +2,121 @@
   {
     "from": "vip@client.com",
     "subject": "Urgent: Contract Renewal",
-    "body": "Can we finalize the contract today? It’s critical we resolve this ASAP.",
-    "date": "2025-04-29T09:30:00"
+    "body": "Hi team,\n\nAs discussed in our previous meetings, the topic of 'Urgent: Contract Renewal' continues to be a high-priority item for both internal stakeholders and external partners. We've observed increased interest from clients seeking clarity on this issue, especially as we approach the next product release cycle. It's important that we finalize our approach before the end of the week so that we can avoid any misalignment or last-minute delays.\n\nPlease review the relevant documentation and come prepared to provide updates during tomorrow’s sync. If anyone requires additional support, don’t hesitate to reach out directly.\n\nThanks,\nVip",
+    "date": "2025-04-26T05:06:33"
   },
   {
     "from": "ceo@zenbox.com",
     "subject": "Quarterly Strategy Update",
-    "body": "This quarter we’re focusing on productivity features and AI tools to support our users.",
-    "date": "2025-04-28T14:45:00"
+    "body": "Hi team,\n\nAs we head into Q2, our strategic focus remains clear: deepen our product's value for knowledge workers and double down on AI-powered enhancements. We've seen strong traction with Smart Summaries, and I believe this is just the beginning. Over the next few weeks, I’ll be meeting with each department to gather feedback on how we can better align resources toward our core objectives. Let’s continue operating with urgency and precision.\n\nThanks for your hard work,\nCEO",
+    "date": "2025-04-28T01:07:33"
   },
   {
     "from": "team@zenbox.com",
     "subject": "Standup Notes",
-    "body": "Here’s a summary of today’s standup meeting and action items.",
-    "date": "2025-04-27T10:15:00"
+    "body": "Hey everyone,\n\nHere's a quick summary of today’s standup. Frontend team resolved the inbox sorting bug and is now focusing on mobile responsiveness. Backend team completed the summaries endpoint and will begin testing smart prioritization logic tomorrow. Marketing is finalizing copy for the product launch microsite, targeting next Wednesday. Reminder: please update your JIRA tickets and flag any blockers in Slack before EOD.\n\nBest,\nProduct Ops",
+    "date": "2025-04-26T18:16:33"
   },
   {
     "from": "marketing@zenbox.com",
     "subject": "Launch Metrics",
-    "body": "Check out early feedback from our ZenBox rollout.",
-    "date": "2025-04-26T16:30:00"
+    "body": "Hi team,\n\nI’ve compiled the metrics from our latest launch cycle. We saw a 17% increase in user engagement across our onboarding flows and a 23% increase in Smart Summary usage in the first week. Social traffic exceeded expectations, with LinkedIn bringing in over 1,000 new visitors. A full breakdown is in the shared dashboard. Let me know if you'd like to go through any of the segment data in more detail.\n\nThanks,\nMarketing",
+    "date": "2025-04-28T07:50:33"
   },
   {
     "from": "noreply@newsletter.com",
-    "subject": "Your weekly newsletter",
-    "body": "Check out the latest productivity tips and updates from around the industry.",
-    "date": "2025-04-25T08:20:00"
+    "subject": "Your Weekly Newsletter",
+    "body": "Welcome to this week's productivity roundup!\n\nIn this issue: Discover five new apps that improve focus during deep work, read our interview with the founder of Calmly, and get a sneak peek into ZenBox’s roadmap for Q3. We’re also announcing a new webinar next Thursday featuring experts on async communication. Don’t miss the community Q&A section at the end — we’re featuring tips from power users like you.\n\nStay productive,\nThe ZenBox Team",
+    "date": "2025-04-28T06:21:33"
   },
   {
     "from": "alice@zenbox.com",
     "subject": "Bug Report: Inbox Sync",
-    "body": "Found a bug with inbox sync for mobile users.",
-    "date": "2025-04-28T11:50:00"
+    "body": "Hi team,\n\nI encountered a bug during this morning’s QA session where synced emails appeared twice in the inbox when using the prioritization filter. This only happens under certain network conditions and seems tied to the caching layer. I’ve logged the bug in Linear and included console logs and a short Loom video showing the issue. Assigning it to DevOps for now but happy to help investigate further.\n\nBest,\nAlice",
+    "date": "2025-04-25T13:03:33"
   },
   {
     "from": "vip@investors.com",
     "subject": "Follow-up from Board Call",
-    "body": "Thanks for the update — looking forward to next steps.",
-    "date": "2025-04-24T13:00:00"
+    "body": "Thanks for your presentation on the product roadmap yesterday.\n\nThe board is encouraged by the progress made in AI-backed summarization and the overall direction of ZenBox. We’d like to request monthly usage reports through the end of the quarter to monitor adoption. Also, please share insights on customer retention trends as you prepare for the next release. Looking forward to your update next week.\n\nRegards,\nInvestor Relations",
+    "date": "2025-04-24T20:36:33"
   },
   {
     "from": "daniel@zenbox.com",
     "subject": "Frontend Issue Resolved",
-    "body": "The bug you flagged in layout view has been fixed.",
-    "date": "2025-04-27T09:05:00"
-  },
-  {
-    "from": "ceo@zenbox.com",
-    "subject": "Vision 2025",
-    "body": "Let’s align on what success looks like for the coming quarter.",
-    "date": "2025-04-26T17:40:00"
+    "body": "Hi all,\n\nThe issue affecting summary rendering in Firefox has been resolved. It was due to a style inheritance conflict with the `.email` container when summaries were dynamically inserted. I’ve patched the CSS and tested in all major browsers. The fix is now merged into `main` and deployed to staging. Let me know if anyone notices regressions in edge cases.\n\nThanks,\nDaniel",
+    "date": "2025-04-23T11:32:33"
   },
   {
     "from": "support@zenbox.com",
-    "subject": "User Feedback Report",
-    "body": "Collected insights from 150+ new users in the past week.",
-    "date": "2025-04-25T12:10:00"
+    "subject": "User Feedback Summary",
+    "body": "Hey team,\n\nWe’ve aggregated user feedback from the last two weeks across Intercom, Zendesk, and Twitter. The biggest theme is appreciation for the Deep Work timer, though a few users are confused about how to toggle Smart Prioritization. A few minor UI complaints were flagged on mobile — mostly around font size and layout spacing. Full insights are in Notion under 'Customer Voice – April.'\n\nBest,\nSupport",
+    "date": "2025-04-27T08:01:33"
   },
   {
-    "from": "vip@client.com",
-    "subject": "Project Alpha: Update Request",
-    "body": "Could you provide an updated roadmap?",
-    "date": "2025-04-29T10:15:00"
+    "from": "product@zenbox.com",
+    "subject": "Smart Summary Beta Launch",
+    "body": "Hi all,\n\nWe’re officially launching Smart Summary to beta users starting today. The feature flag is live and targeting Pro users in North America. We’ll expand access regionally as stability improves. Please keep an eye on logs, especially for `summary_generator_v2`, and file any anomalies in the 'AI Beta Feedback' board. So far, early testers report 80% satisfaction with summary relevance.\n\nThanks,\nProduct Team",
+    "date": "2025-04-29T10:21:33"
   },
   {
     "from": "paul@zenbox.com",
-    "subject": "Legal Review Complete",
-    "body": "The new T&Cs are approved.",
-    "date": "2025-04-23T15:25:00"
+    "subject": "Legal Review: Updated Terms",
+    "body": "Hi,\n\nThe updated Terms & Conditions are now approved by legal. The biggest change affects data retention language, specifically clarifying how anonymized AI training data is handled. We’ll need to push an email notification to all users within 7 days of deployment. I’ve sent a draft to Marketing. Please coordinate messaging with CX to ensure consistency.\n\nThanks,\nPaul",
+    "date": "2025-04-27T17:34:33"
   },
   {
     "from": "vip@advisorygroup.com",
-    "subject": "Strategy Alignment Session",
-    "body": "Do we have a time to sync this week?",
-    "date": "2025-04-28T16:00:00"
+    "subject": "Strategy Session Follow-up",
+    "body": "Dear ZenBox team,\n\nFollowing our recent session, I wanted to emphasize how impressed we are with your alignment on long-term vision. You’re in a strong position to differentiate through productivity-first features. I suggest refining your go-to-market narrative to emphasize AI-powered assistance. Let’s reconnect next Thursday with your finalized Q2 plan.\n\nBest regards,\nAdvisory Group",
+    "date": "2025-04-25T12:15:33"
   },
   {
     "from": "devops@zenbox.com",
-    "subject": "Deployment Status",
-    "body": "Production rollout went smoothly.",
-    "date": "2025-04-27T13:45:00"
+    "subject": "Incident Report and Root Cause",
+    "body": "Team,\n\nHere is the postmortem for yesterday’s downtime (incident #472).\n\nRoot cause: a malformed summary payload triggered an infinite loop in the Markdown rendering service. Mitigation: input validation and length restrictions have been implemented. We’ve also added a circuit breaker pattern to the queue handler. RCA document is linked in Confluence.\n\n– DevOps",
+    "date": "2025-04-28T06:55:33"
   },
   {
     "from": "vip@client.com",
-    "subject": "Slack Integration Q&A",
-    "body": "Can we connect about your Slack roadmap?",
-    "date": "2025-04-24T11:30:00"
+    "subject": "Slack Integration Feedback",
+    "body": "Hello,\n\nThanks for enabling us in the Slack beta. A few quick notes: the `/summarize` command is a hit, but there’s some confusion around authorization — users expect single sign-on to persist. Also, the channel summary preview could use some formatting polish. Overall, this is exactly the kind of low-friction productivity we’re looking for. Keep it coming.\n\nCheers,\nClient Success",
+    "date": "2025-04-24T18:41:33"
   },
   {
     "from": "designer@zenbox.com",
-    "subject": "Inbox Layout Mockups",
-    "body": "Figma board is ready for feedback.",
-    "date": "2025-04-23T17:20:00"
+    "subject": "New Layout Proposal",
+    "body": "Hi all,\n\nAttached is a draft layout for the updated inbox UI. Key changes include floating header with Deep Work timer visibility, tabbed filters for flagged messages, and an integrated AI toggle. I used muted accent colors to reduce eye fatigue. Looking for early feedback before we start prototyping in Figma.\n\nThanks,\nDesign",
+    "date": "2025-04-23T09:48:33"
   },
   {
     "from": "noreply@survey.com",
-    "subject": "We Value Your Feedback!",
-    "body": "Take our 30-second survey to shape the future of ZenBox.",
-    "date": "2025-04-25T09:10:00"
+    "subject": "Help Shape Our Roadmap",
+    "body": "Hi ZenBox user,\n\nWe’d love your input! Our short 3-minute survey helps us understand what features matter most. Whether it’s advanced calendar integrations, voice-to-summary tools, or customizable automations — your voice helps guide our roadmap. Participants can opt in for early access to new betas.\n\nClick here to begin: [Survey Link]",
+    "date": "2025-04-25T07:33:33"
   },
   {
     "from": "data@zenbox.com",
-    "subject": "Weekly Usage Dashboard",
-    "body": "User engagement rose 11% this week.",
+    "subject": "Weekly Usage Analytics",
+    "body": "Hi team,\n\nHere’s the weekly metrics snapshot: Daily active users up 9.2%, time in Deep Work mode up 14%, and Smart Summary usage stable at ~62% of sessions. Email priority flag toggles increased 2.4x week over week, suggesting higher engagement with inbox filters. The full dashboard is in Metabase under ‘Q2 Engagement KPIs.’\n\n– Data Team",
     "date": "2025-04-29T08:00:00"
   },
   {
     "from": "vip@partnernetwork.com",
-    "subject": "Partnership Opportunity",
-    "body": "We’d like to explore a co-marketing initiative.",
-    "date": "2025-04-28T10:30:00"
+    "subject": "Partnership Exploration",
+    "body": "Hello ZenBox team,\n\nWe’re interested in exploring a strategic partnership between our platforms. Your Deep Work and Smart Summary tools would complement our own workflow automation offerings. We’re envisioning a co-marketing campaign and technical integration to kick off Q3. Let us know a few times that work next week.\n\nBest,\nPartner Dev",
+    "date": "2025-04-26T10:55:33"
   },
   {
     "from": "hr@zenbox.com",
-    "subject": "Policy Reminder",
-    "body": "Don't forget to log your time-off requests by EOW.",
-    "date": "2025-04-23T08:55:00"
+    "subject": "Policy Reminder: Time Off",
+    "body": "Hi everyone,\n\nA quick reminder to log any planned PTO in BambooHR by end of day Friday. With Q2 underway, we’re trying to avoid scheduling bottlenecks — especially during the Deep Work initiative sprints. Please coordinate with your manager if you anticipate extended leave.\n\nThanks,\nHR",
+    "date": "2025-04-25T16:12:33"
+  },
+  {
+    "from": "sales@zenbox.com",
+    "subject": "Enterprise Deal Progress",
+    "body": "Hello team,\n\nThe enterprise prospect from San Francisco has moved to contract stage. Legal has reviewed our MSA and asked for clarity on data localization. Their CIO is especially interested in our AI transparency documentation. Let’s aim to finalize by Thursday so onboarding can begin next week. Full notes in Salesforce.\n\nBest,\nSales",
+    "date": "2025-04-27T13:30:33"
   }
 ]
